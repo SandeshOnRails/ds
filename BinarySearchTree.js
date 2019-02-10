@@ -133,97 +133,50 @@ class BinarySearchTree {
           return visited
        }
 
-       insert (val) {
+       dfsPreOrder() {
              
-        let node = new Node(val)
+        let visited = []
 
-           if(!this.root) {
-                 
-                 this.root = node
-                 return this
-           }
+        function traverse(node) {
+              
+              visited.push(node.val)
+              if(node.left) traverse(node.left)
+              if(node.right) traverse(node.right)
+        }
+        traverse(this.root)
+        return visited
 
-           else {
-                 
-            let current = this.root
-
-            while(true) {
-                
-                if(current.val > val) {
-                      
-                    if(!current.left) {
-
-                        current.left = node
-                        return this
-                    }
-                    else {
-                         
-                        current = current.left
-                    }
-                }
-                else {
-                     
-                    if(!current.right) {
-                          
-                        current.right = node
-                        return this
-                    }
-
-                    else {
-
-                        current = current.right
-                    }
-                }
-            }
-                
-           }
        }
 
-      find2 (val) {
-            
-           if(this.root.val === val) return true
-           
-           let curr = this.root
+       dfsPostOrder () {
+             
+          let visited = []
 
-           while(true && curr) {
+          function traverse (node) {
                 
-                if(curr.val < val) {
-                     
-                    if(!curr.right) {
-                          
-                         return false
-                    }
-                    else {
+             if(node.left) traverse(node.left)
+             if(node.right) traverse(node.right)
+             visited.push(node.val)
+          }
 
-                        if (curr.right.val === val) {
-                             
-                            return true
-                        }
-                         
-                        curr = curr.right
-                    }
-                }
-                else {
-                     
-                    if(!curr.left) {
-                          
-                        return false
-                    }
-                    else {
-                          
-                        if(curr.left.val === val) {
-                              
-                            return true
-                        }
+          traverse(this.root)
+          return visited
+       }
 
-                        curr = curr.left
-                    }
-                }
-           }
-
-           return false
-      }
+       dfsInOrder () {
             
+            let visited = []
+
+            function traverse (node) {
+                  
+                if(node.left) traverse(node.left)
+                visited.push(node.val)
+                if(node.right) traverse(node.right)
+            }
+            traverse(this.root)
+            return visited
+       }
+
        
 
        
@@ -238,14 +191,8 @@ tree.insert(8)
 tree.insert(20)
 
 console.log(tree.bfs())
-console.log(tree.find2(10))
-console.log(tree.find2(6))
-console.log(tree.find2(15))
-console.log(tree.find2(3))
-console.log(tree.find2(8))
-console.log(tree.find2(20))
-console.log(tree.find2(9))
-
+console.log(tree.dfsPreOrder())
+console.log(tree.dfsPostOrder())
 
 
 
