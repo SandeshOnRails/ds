@@ -174,7 +174,7 @@ class LinkedList {
           
         let prev = null
         let curr = this.head
-        this.head = this.tail
+       // this.head = this.tail
         this.tail = curr
         let next;
 
@@ -186,15 +186,74 @@ class LinkedList {
             curr = next
             
         }
+        this.head = prev
     }
 
+    deleteAllOdd() {
+          
+        let curr = this.head
 
+        while(curr.val%2 !== 0) {
+             curr = curr.next;
+            this.head = curr;
+        }
+
+        let prev = curr
+        curr = curr.next
+
+        while(curr) {
+             
+            if(curr.val %2 !== 0) {
+                  
+                prev.next = curr.next
+                curr = curr.next
+                
+            }
+            else {
+                prev = curr  
+                curr = curr.next
+            }
+        }
+
+    }
+
+    deleteAllDuplicate() {
+          
+        if(this.head){
+        let prev = this.head
+        let curr = this.head.next
+        while(curr) {
+
+            if(curr.val === prev.val) {
+                
+                 curr = curr.next
+            }
+            else {
+
+                prev.next = curr
+                prev = curr
+                curr = curr.next
+            }
+        }
+
+        prev.next = null
+    }
+
+else {
+     return undefined
+}
+    }
 
 }
 
 let list = new LinkedList()
-list.push(1)
-list.push(2)
+list.push(3)
+list.push(3)
 list.insertAt(2,3)
-list.reverse()
+list.push(4)
+list.push(5)
+list.push(5)
+//list.reverse()
+//list.deleteAllOdd()
+list.deleteAllDuplicate()
 list.print()
